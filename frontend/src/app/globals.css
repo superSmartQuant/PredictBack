@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+:root {
+  /* Dark Base (TradingView inspired) */
+  --bg-primary: #0D0E12;
+  --bg-secondary: #161823;
+  --bg-tertiary: #1E202E;
+  --bg-elevated: #252836;
+
+  /* Japanese Pink Spectrum (Magic Eden inspired) */
+  --pink-50: #FFF5F7;
+  --pink-100: #FFE4EC;
+  --pink-200: #FFC7D9;
+  --pink-300: #FF9AB8;
+  --pink-400: #FF6B9D;
+  --pink-500: #FF4785;
+  --pink-600: #E63D75;
+  --pink-700: #C73066;
+  --pink-800: #A02553;
+  --pink-900: #7A1D41;
+
+  /* Data Visualization */
+  --bullish-green: #26A69A;
+  --bearish-red: #EF5350;
+  --neutral-gray: #787B86;
+
+  /* Functional Colors */
+  --text-primary: #E8E9ED;
+  --text-secondary: #B2B5BE;
+  --text-tertiary: #787B86;
+  --border: #2A2D3A;
+  --border-pink: rgba(255, 71, 133, 0.15);
+
+  /* Shadows */
+  --shadow-pink: 0 8px 24px rgba(255, 71, 133, 0.25);
+
+  /* Transitions */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-pink-50: var(--pink-50);
+  --color-pink-100: var(--pink-100);
+  --color-pink-200: var(--pink-200);
+  --color-pink-300: var(--pink-300);
+  --color-pink-400: var(--pink-400);
+  --color-pink-500: var(--pink-500);
+  --color-pink-600: var(--pink-600);
+  --color-pink-700: var(--pink-700);
+  --color-pink-800: var(--pink-800);
+  --color-pink-900: var(--pink-900);
+  --color-bullish: var(--bullish-green);
+  --color-bearish: var(--bearish-red);
+  --color-neutral: var(--neutral-gray);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-border: var(--border);
+  --color-border-pink: var(--border-pink);
+  --font-display: 'Chakra Petch', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-elevated);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink-500);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s var(--ease-smooth) backwards;
+}
+
+.animate-pulse-soft {
+  animation: pulse 2s var(--ease-smooth) infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Glow effects */
+.glow-pink {
+  box-shadow: 0 0 20px rgba(255, 71, 133, 0.3),
+              0 0 40px rgba(255, 71, 133, 0.1);
+}
+
+.glow-pink-hover:hover {
+  box-shadow: 0 0 20px rgba(255, 71, 133, 0.3),
+              0 0 40px rgba(255, 71, 133, 0.1);
+}
+
+/* Gradient backgrounds */
+.gradient-pink {
+  background: linear-gradient(135deg, var(--pink-500) 0%, var(--pink-700) 100%);
+}
+
+.gradient-pink-soft {
+  background: linear-gradient(135deg,
+    rgba(255, 71, 133, 0.05) 0%,
+    rgba(255, 71, 133, 0.02) 100%);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.card-hover:hover {
+  border-color: var(--border-pink);
+  box-shadow: 0 8px 24px rgba(255, 71, 133, 0.08);
+  transform: translateY(-4px);
+}
+
+/* Button styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink-500) 0%, var(--pink-600) 100%);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s var(--ease-smooth);
+  box-shadow: 0 4px 12px rgba(255, 71, 133, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 71, 133, 0.35);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-pink);
+  color: var(--pink-400);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 71, 133, 0.1);
+  border-color: var(--pink-400);
+}
+
+/* Input styles */
+.input-field {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.input-field:focus {
+  border-color: var(--pink-400);
+  box-shadow: 0 0 0 3px rgba(255, 71, 133, 0.15);
+  outline: none;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 0%,
+    var(--bg-elevated) 50%,
+    var(--bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Sakura pattern overlay */
+.sakura-pattern {
+  position: relative;
+}
+
+.sakura-pattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5c-2 4-6 8-6 12s4 6 6 6 6-2 6-6-4-8-6-12zm-15 20c-2 4-6 8-6 12s4 6 6 6 6-2 6-6-4-8-6-12zm30 0c-2 4-6 8-6 12s4 6 6 6 6-2 6-6-4-8-6-12z' fill='%23FF4785'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
