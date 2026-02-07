@@ -15,6 +15,13 @@ import {
   ConditionOperator,
 } from "@/lib/api";
 import { WorkflowEditor } from "@/components/workflow-editor";
+import { useWorkflowStore } from "@/lib/stores/workflowStore";
+import {
+  useSavedStrategiesStore,
+  type FormStrategyData,
+  type VisualStrategyData,
+} from "@/lib/stores/savedStrategiesStore";
+import { SavedStrategies, SaveStrategyModal } from "./SavedStrategies";
 import {
   LineChart,
   Line,
@@ -102,9 +109,14 @@ export function BacktestForm({ mode, marketId, topic, backLink, title, subtitle 
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<BacktestResult | null>(null);
   const [useVisualEditor, setUseVisualEditor] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
 
   // For continuous markets
   const [amountOfMarkets, setAmountOfMarkets] = useState(5);
+
+  // Saved strategies
+  const { saveStrategy } = useSavedStrategiesStore();
+  const workflowStore = useWorkflowStore();
 
   const [gridForm, setGridForm] = useState<GridFormData>({
     grid_size: 5,
@@ -244,6 +256,80 @@ export function BacktestForm({ mode, marketId, topic, backLink, title, subtitle 
       }
     });
     return names;
+  };
+
+  // Validate form strategy
+  const validateFormStrategy = (): string[] => {
+    const errors: string[] = [];
+    if (customForm.indicators.length === 0) {
+      errors.push("Strategy must have at least one indicator");
+    }
+    if (customForm.buy_rules.length === 0 && customForm.sell_rules.length === 0) {
+      errors.push("Strategy must have at least one buy or sell rule");
+    }
+    return errors;
+  };
+
+  // Save strategy handler
+  const handleSaveStrategy = (name: string, description: string) => {
+    if (useVisualEditor) {
+      // Validate visual editor strategy
+      workflowStore.validateWorkflow();
+      const state = useWorkflowStore.getState();
+      if (!state.isValid) {
+        setError("Cannot save: " + state.validationErrors.map(e => e.message).join(", "));
+        return;
+      }
+
+      // Save visual editor strategy
+      const workflow = workflowStore.exportWorkflow();
+      const data: VisualStrategyData = {
+        type: "visual",
+        workflow,
+        orderSize: workflowStore.orderSize,
+        initialBalance: workflowStore.initialBalance,
+      };
+      saveStrategy(name, description || undefined, data);
+    } else {
+      // Validate form strategy
+      const validationErrors = validateFormStrategy();
+      if (validationErrors.length > 0) {
+        setError("Cannot save: " + validationErrors.join(", "));
+        return;
+      }
+
+      // Save form-based strategy
+      const data: FormStrategyData = {
+        type: "form",
+        indicators: customForm.indicators,
+        buy_rules: customForm.buy_rules,
+        sell_rules: customForm.sell_rules,
+        order_size: customForm.order_size,
+        initial_balance: customForm.initial_balance,
+      };
+      saveStrategy(name, description || undefined, data);
+    }
+    setError(null); // Clear any previous errors on successful save
+  };
+
+  // Load form strategy handler
+  const handleLoadFormStrategy = (data: FormStrategyData) => {
+    setUseVisualEditor(false);
+    setCustomForm({
+      indicators: data.indicators,
+      buy_rules: data.buy_rules,
+      sell_rules: data.sell_rules,
+      order_size: data.order_size,
+      initial_balance: data.initial_balance,
+    });
+  };
+
+  // Load visual strategy handler
+  const handleLoadVisualStrategy = (data: VisualStrategyData) => {
+    setUseVisualEditor(true);
+    workflowStore.loadWorkflow(data.workflow);
+    workflowStore.setOrderSize(data.orderSize);
+    workflowStore.setInitialBalance(data.initialBalance);
   };
 
   // Build request based on mode
@@ -736,6 +822,30 @@ export function BacktestForm({ mode, marketId, topic, backLink, title, subtitle 
                 </button>
               </div>
             </div>
+
+            {/* Saved Strategies - Only shown when Custom is selected */}
+            {strategy === "custom" && (
+              <div className="bg-bg-secondary rounded-xl border border-border p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="font-[family-name:var(--font-chakra)] text-lg font-semibold text-pink-50">
+                    Saved Strategies
+                  </h2>
+                  <button
+                    onClick={() => setShowSaveModal(true)}
+                    className="text-xs text-pink-400 hover:text-pink-300 flex items-center gap-1 transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                    </svg>
+                    Save Current
+                  </button>
+                </div>
+                <SavedStrategies
+                  onLoadFormStrategy={handleLoadFormStrategy}
+                  onLoadVisualStrategy={handleLoadVisualStrategy}
+                />
+              </div>
+            )}
 
             {/* Parameters */}
             <div className="bg-bg-secondary rounded-xl border border-border p-6">
@@ -1250,6 +1360,14 @@ export function BacktestForm({ mode, marketId, topic, backLink, title, subtitle 
           </div>
         </div>
       </div>
+
+      {/* Save Strategy Modal */}
+      <SaveStrategyModal
+        isOpen={showSaveModal}
+        onClose={() => setShowSaveModal(false)}
+        onSave={handleSaveStrategy}
+        defaultName={useVisualEditor ? workflowStore.workflowName : "Custom Strategy"}
+      />
     </main>
   );
 }
