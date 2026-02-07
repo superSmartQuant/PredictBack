@@ -26,24 +26,34 @@ export function WalletButton() {
     <button
       onClick={handleClick}
       disabled={connecting}
-      className="btn-primary text-white text-sm inline-flex items-center gap-2"
+      className={`
+        inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
+        transition-all duration-200 ease-out cursor-pointer
+        ${publicKey
+          ? 'bg-bg-tertiary border border-border hover:border-pink-500/50 hover:bg-bg-elevated text-text-primary'
+          : 'bg-pink-500 hover:bg-pink-400 hover:shadow-[0_0_20px_rgba(255,71,133,0.4)] text-white'
+        }
+        disabled:opacity-50 disabled:cursor-not-allowed
+      `}
     >
       {connecting ? (
         <>
           <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          Connecting...
+          <span>Connecting...</span>
         </>
       ) : publicKey ? (
         <>
-          <span className="w-2 h-2 rounded-full bg-bullish" />
-          {shortAddress}
+          <span className="w-2 h-2 rounded-full bg-bullish animate-pulse" />
+          <span className="font-mono text-sm">{shortAddress}</span>
         </>
       ) : (
         <>
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="2" y="6" width="20" height="12" rx="2" />
+            <circle cx="16" cy="12" r="2" />
+            <path d="M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" />
           </svg>
-          Connect Wallet
+          <span>Connect Wallet</span>
         </>
       )}
     </button>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Chakra_Petch, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { WalletProvider } from "@/components/wallet";
+import { GlobalNavbar } from "@/components/layout";
 
 const chakraPetch = Chakra_Petch({
   variable: "--font-chakra",
@@ -42,7 +43,10 @@ export default function RootLayout({
       <body
         className={`${chakraPetch.variable} ${ibmPlexSans.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <WalletProvider>{children}</WalletProvider>
+        <WalletProvider>
+          <GlobalNavbar />
+          <div className="pt-16">{children}</div>
+        </WalletProvider>
       </body>
     </html>
   );

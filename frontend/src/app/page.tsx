@@ -1,36 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { WalletButton } from "@/components/wallet";
 
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-bg-primary sakura-pattern">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-primary/95 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg gradient-pink flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
-            </div>
-            <span className="font-[family-name:var(--font-chakra)] font-bold text-xl text-pink-50">
-              PredictBack
-            </span>
-          </div>
-          <div className="flex items-center gap-6">
-            <a href="#features" className="text-text-secondary hover:text-pink-400 transition-colors">
-              Features
-            </a>
-            <a href="#how-it-works" className="text-text-secondary hover:text-pink-400 transition-colors">
-              How It Works
-            </a>
-            <WalletButton />
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-16 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto">
             {/* Badge */}
@@ -60,16 +36,16 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up stagger-3">
               <Link
                 href="/topics"
-                className="btn-primary text-white px-8 py-4 text-lg inline-flex items-center gap-2"
+                className="group inline-flex items-center gap-3 bg-pink-500 hover:bg-pink-400 text-white px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-200 hover:shadow-[0_0_24px_rgba(255,71,133,0.5)]"
               >
                 Get Started
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
               <a
                 href="#how-it-works"
-                className="btn-secondary px-8 py-4 text-lg"
+                className="inline-flex items-center gap-2 bg-transparent border border-border hover:border-pink-500/50 text-text-primary hover:text-pink-400 px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-200 hover:bg-bg-tertiary"
               >
                 Learn More
               </a>
@@ -234,10 +210,10 @@ export default function LandingPage() {
           <div className="text-center mt-12">
             <Link
               href="/topics"
-              className="btn-primary text-white px-8 py-4 text-lg inline-flex items-center gap-2"
+              className="group inline-flex items-center gap-3 bg-pink-500 hover:bg-pink-400 text-white px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-200 hover:shadow-[0_0_24px_rgba(255,71,133,0.5)]"
             >
               Start Backtesting
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </Link>

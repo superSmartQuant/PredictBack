@@ -25,27 +25,8 @@ export default function TopicsPage() {
 
   return (
     <main className="min-h-screen bg-bg-primary">
-      {/* Header */}
-      <header className="bg-bg-secondary border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg gradient-pink flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
-            </div>
-            <span className="font-[family-name:var(--font-chakra)] font-bold text-xl text-pink-50">
-              PredictBack
-            </span>
-          </Link>
-          <nav className="flex items-center gap-2 text-sm text-text-tertiary">
-            <Link href="/" className="hover:text-pink-400 transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-pink-400">Topics</span>
-          </nav>
-        </div>
-      </header>
-
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-10">
           <h1 className="font-[family-name:var(--font-chakra)] text-3xl md:text-4xl font-bold text-pink-50 mb-3">
             Select a Topic

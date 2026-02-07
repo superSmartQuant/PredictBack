@@ -39,35 +39,12 @@ export default function MarketsPage() {
     loadData();
   }, [topic]);
 
-  // Render header (same for both modes)
-  const renderHeader = () => (
-    <header className="bg-bg-secondary border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg gradient-pink flex items-center justify-center">
-            <span className="text-white font-bold text-sm">P</span>
-          </div>
-          <span className="font-[family-name:var(--font-chakra)] font-bold text-xl text-pink-50">
-            PredictBack
-          </span>
-        </Link>
-        <nav className="flex items-center gap-2 text-sm text-text-tertiary">
-          <Link href="/" className="hover:text-pink-400 transition-colors">Home</Link>
-          <span>/</span>
-          <Link href="/topics" className="hover:text-pink-400 transition-colors">Topics</Link>
-          <span>/</span>
-          <span className="text-pink-400 capitalize">{topic.replace(/-/g, " ")}</span>
-        </nav>
-      </div>
-    </header>
-  );
 
   // Render loading state
   if (loading) {
     return (
       <main className="min-h-screen bg-bg-primary">
-        {renderHeader()}
-        <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="space-y-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="bg-bg-secondary rounded-xl border border-border p-5">
@@ -85,8 +62,7 @@ export default function MarketsPage() {
   if (error) {
     return (
       <main className="min-h-screen bg-bg-primary">
-        {renderHeader()}
-        <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="bg-bearish/10 border border-bearish/20 rounded-xl p-6 text-center">
             <p className="text-bearish mb-4">{error}</p>
             <button
@@ -120,8 +96,7 @@ export default function MarketsPage() {
   // Render non-continuous (market selection) - original behavior
   return (
     <main className="min-h-screen bg-bg-primary">
-      {renderHeader()}
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="mb-10">
           <Link
             href="/topics"

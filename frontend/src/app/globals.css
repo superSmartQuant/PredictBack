@@ -179,39 +179,72 @@ body {
   transform: translateY(-4px);
 }
 
-/* Button styles */
+/* Button styles - Magic Eden inspired */
 .btn-primary {
-  background: linear-gradient(135deg, var(--pink-500) 0%, var(--pink-600) 100%);
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-family: 'Chakra Petch', sans-serif;
-  font-weight: 600;
-  transition: all 0.3s var(--ease-smooth);
-  box-shadow: 0 4px 12px rgba(255, 71, 133, 0.25);
+  background: var(--pink-500);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  transition: all 0.2s var(--ease-smooth);
+  border: none;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 71, 133, 0.35);
+  background: var(--pink-400);
+  box-shadow: 0 0 20px rgba(255, 71, 133, 0.4);
 }
 
 .btn-primary:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
+  background: var(--pink-600);
+}
+
+.btn-primary:disabled {
+  background: var(--bg-elevated);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .btn-secondary {
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-pink);
-  color: var(--pink-400);
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s var(--ease-smooth);
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s var(--ease-smooth);
+  cursor: pointer;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 71, 133, 0.1);
-  border-color: var(--pink-400);
+  background: var(--bg-tertiary);
+  border-color: var(--pink-500);
+  color: var(--pink-400);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* Large button variant */
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 14px;
+}
+
+/* Icon button */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Input styles */

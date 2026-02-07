@@ -103,12 +103,12 @@ const OPERATOR_LABELS: Record<ConditionOperator, string> = {
 };
 
 export function BacktestForm({ mode, marketId, topic, backLink, title, subtitle }: BacktestFormProps) {
-  const [strategy, setStrategy] = useState<StrategyType>("grid");
+  const [strategy, setStrategy] = useState<StrategyType>("custom");
   const [feeRate, setFeeRate] = useState("0.001");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<BacktestResult | null>(null);
-  const [useVisualEditor, setUseVisualEditor] = useState(false);
+  const [useVisualEditor, setUseVisualEditor] = useState(true);
   const [showSaveModal, setShowSaveModal] = useState(false);
 
   // For continuous markets
@@ -685,27 +685,6 @@ export function BacktestForm({ mode, marketId, topic, backLink, title, subtitle 
 
   return (
     <main className="min-h-screen bg-bg-primary">
-      {/* Header */}
-      <header className="bg-bg-secondary border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg gradient-pink flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
-            </div>
-            <span className="font-[family-name:var(--font-chakra)] font-bold text-xl text-pink-50">
-              PredictBack
-            </span>
-          </Link>
-          <nav className="flex items-center gap-2 text-sm text-text-tertiary">
-            <Link href="/" className="hover:text-pink-400 transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/topics" className="hover:text-pink-400 transition-colors">Topics</Link>
-            <span>/</span>
-            <span className="text-pink-400">Backtest</span>
-          </nav>
-        </div>
-      </header>
-
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Title Section */}
         <div className="mb-8">
